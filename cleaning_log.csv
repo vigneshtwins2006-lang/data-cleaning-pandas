@@ -1,0 +1,15 @@
+step,action,detail,rows_affected
+headers,standardized,"['Customer ID', ' Customer Name ', 'Age', 'City', 'Join Date', 'Salary', 'Purchase Amount', 'Gender'] -> ['customer_id', 'customer_name', 'age', 'city', 'join_date', 'salary', 'purchase_amount', 'gender']",
+text,trimmed whitespace,5 text columns,
+dtype,->datetime,'join_date',
+dtype,->numeric,'purchase_amount',
+categorical,standardized,'customer_name': 5 -> 5 unique values,
+categorical,standardized,'city': 7 -> 4 unique values,
+categorical,standardized,'gender': 6 -> 2 unique values,
+duplicates,dropped exact duplicate rows,kept first occurrence,12
+missing,imputed median,'age' = 41.00,20
+missing,imputed 'Unknown' label,'city' -> Unknown,10
+missing,left as NaT + flag column,'join_date',8
+missing,imputed median,'salary' = 57240.00,15
+outliers,capped (winsorized) + flagged,"'age' to [0.0, 83.5]",1
+outliers,capped (winsorized) + flagged,"'salary' to [0.0, 114569.1]",1
